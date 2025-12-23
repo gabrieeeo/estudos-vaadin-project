@@ -10,9 +10,9 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@Route("") // The @Route annotation turns this class into a view, mapping it to the root URL ("/") of the application.
+@Route("") //The @Route annotation turns this class into a view, mapping it to the root URL ("/") of the application.
 @PageTitle(value = "Hello, Vaadin!!!!") //The @PageTitle annotation, is for sets page title of web page
-public class MainView extends VerticalLayout{ // MainView extends VerticalLayout (it's layout component) for children vertically
+public class MainView extends VerticalLayout{ //MainView extends VerticalLayout (it's layout component) for children vertically
     public MainView() {
         add(new H1("Hello, Vaadin!")); //H1 and H2 is a componente that corresponds to the HTML (a top-level heading)
         add(new H2("Isso é satisfatório."));
@@ -20,10 +20,22 @@ public class MainView extends VerticalLayout{ // MainView extends VerticalLayout
         add(new Button("Say Hello", event -> add(new Span("Hello, it's Vaadin broooo"))));
 
         //Add input TextField
-        var nameField = new TextField("What is your name?");
+        var nameField = new TextField("What is your name?"); //TextField component with a label
         add(nameField);
-        add(new Button("Say Hello", event -> 
-            add(new Span("Hello, %s!".formatted(nameField.getValue())))
+        add(new Button("Send", event -> 
+            add(new Span("Hello, %s!".formatted(nameField.getValue()))) //Adds a new Span of name TextField input
         ));
+
+        //Update a component
+        var greeting = new Span(); 
+        greeting.setVisible(false);
+        add(greeting);
+        /*add(new Button("Update nameField", event ->
+            greeting.setText("Hello, %s!".formatted(nameField.getValue())) 
+        ));*/
+        add(new Button("Say Hello", event -> {
+            greeting.setText("Hello, %s!".formatted(nameField.getValue()));
+            greeting.setVisible(!nameField.isEmpty()); // nameField is empty, span does not appear
+        }));
     }
 }
