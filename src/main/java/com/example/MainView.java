@@ -6,6 +6,7 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -17,5 +18,12 @@ public class MainView extends VerticalLayout{ // MainView extends VerticalLayout
         add(new H2("Isso é satisfatório."));
         add(new H3("It's cool"));
         add(new Button("Say Hello", event -> add(new Span("Hello, it's Vaadin broooo"))));
+
+        //Add input TextField
+        var nameField = new TextField("What is your name?");
+        add(nameField);
+        add(new Button("Say Hello", event -> 
+            add(new Span("Hello, %s!".formatted(nameField.getValue())))
+        ));
     }
 }
